@@ -1,7 +1,9 @@
 package com.course.springcourse.resource;
 
+import com.course.springcourse.domain.Request;
 import com.course.springcourse.domain.User;
 import com.course.springcourse.dto.UserLoginDto;
+import com.course.springcourse.service.RequestService;
 import com.course.springcourse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ import java.util.List;
 public class UserResource {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RequestService requestService;
 
     @PostMapping
     public ResponseEntity<User> save(@RequestBody User user) {
@@ -45,5 +50,12 @@ public class UserResource {
     public ResponseEntity<User> login(@RequestBody UserLoginDto user) {
         User loggedUser = userService.login(user.getEmail(), user.getPassword());
         return ResponseEntity.ok(loggedUser);
+    }
+
+    @GetMapping("/{id}/requests")
+    public ResponseEntity<List<Request>> listAllRequestsById(@PathVariable(name = "id") Long id) {
+        List<Request> requests = requestService.listAllByOwnerId(id);
+
+        return ResponseEntity.ok(requests);
     }
 }
