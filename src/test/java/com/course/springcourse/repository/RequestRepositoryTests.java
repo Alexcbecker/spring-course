@@ -24,6 +24,7 @@ public class RequestRepositoryTests {
     @Autowired
     private RequestRepository requestRepository;
 
+    @Test
     public void AsaveTest() {
         User owner = new User();
         owner.setId(1L);
@@ -36,6 +37,7 @@ public class RequestRepositoryTests {
         assertThat(createdRequest.getId()).isEqualTo(1L);
     }
 
+    @Test
     public void updateTest() {
         User owner = new User();
         owner.setId(1L);
@@ -48,6 +50,7 @@ public class RequestRepositoryTests {
         assertThat(updatedRequest.getDescription()).isEqualTo("Pretendo obter um laptop HP");
     }
 
+    @Test
     public void getByIdTest() {
         Optional<Request> result = requestRepository.findById(1L);
         Request request = result.get();
@@ -55,16 +58,19 @@ public class RequestRepositoryTests {
         assertThat(request.getSubject()).isEqualTo("Novo laptop HP");
     }
 
+    @Test
     public void listTest() {
         List<Request> requests = requestRepository.findAll();
         assertThat(requests.size()).isEqualTo(1);
     }
 
+    @Test
     public void listByOwnerIdTest() {
         List<Request> requests = requestRepository.findAllByOwnerId(1L);
         assertThat(requests.size()).isEqualTo(1);
     }
 
+    @Test
     public void updateStatusTest() {
         int affectedRows = requestRepository.updateStatus(1L, RequestState.IN_PROGRESS);
         assertThat(affectedRows).isEqualTo(1);
