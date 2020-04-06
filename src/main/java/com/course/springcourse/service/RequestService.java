@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Service
 public class RequestService {
-    @Autowired private RequestRepository requestRepository;
+    @Autowired
+    private RequestRepository requestRepository;
 
     public Request save(Request request) {
         request.setState(RequestState.OPEN);
@@ -38,7 +39,7 @@ public class RequestService {
     public List<Request> listAll() {
         List<Request> requests = requestRepository.findAll();
 
-        return  requests;
+        return requests;
     }
 
     public List<Request> listAllByOwnerId(Long ownerId) {
